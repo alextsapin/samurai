@@ -1,6 +1,7 @@
-import React from 'react';
-import Header from './Header'
-import Technologies from './Technologies'
+import Header from './components/Header';
+import Technologies from './Technologies';
+
+import './style.scss';
 
 const App = () => {
     return (

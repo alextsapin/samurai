@@ -1,0 +1,16 @@
+.menu {
+    margin-top: 20px;;
+}
+
+.item {
+    display: block;
+}
+
+.link {
+    color: white;
+    text-decoration: none;
+    &:hover {
+        color: red;
+        text-decoration: underline;
+    }
+}

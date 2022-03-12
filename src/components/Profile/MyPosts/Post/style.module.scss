@@ -1,0 +1,15 @@
+.post {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    border: 1px solid white;
+    padding: 10px;
+    width: 300px;
+    margin-top: 20px;
+}
+
+.avatar {
+    border-radius: 50%;
+    height: 50px;
+}

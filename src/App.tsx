@@ -1,8 +1,8 @@
-import Header from './components/Header';
-import Technologies from './Technologies';
-import Navbar from './components/navbar/Navbar';
+import Header from './components/Header/Header';
+import Navbar from './components/Navbar/Navbar';
+import MyPosts from './components/Profile/MyPosts/MyPosts';
 
-import './style.scss';
+import './sass/style.scss';
 
 const App = () => {
     return (
@@ -14,7 +14,7 @@ const App = () => {
                         <Navbar/>
                     </div>
                     <div className="col-md-8">
-                        <Technologies/>
+                        <MyPosts/>
                     </div>    
                 </div>
             </div>

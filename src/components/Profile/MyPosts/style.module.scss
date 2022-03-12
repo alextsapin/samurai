@@ -1,0 +1,10 @@
+.textarea {
+    height: 100px !important;
+    background: transparent;
+    color: white;
+    padding: 15px !important;
+    &:focus {
+        color: white;
+        background: transparent;
+    }
+}

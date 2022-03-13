@@ -10,7 +10,16 @@
     color: white;
     text-decoration: none;
     &:hover {
-        color: red;
+        color: #F51A51;
+        text-decoration: underline;
+    }
+}
+
+.active {
+    color: #F51A51;
+    text-decoration: none;
+    &:hover {
+        color: #F51A51;
         text-decoration: underline;
     }
 }

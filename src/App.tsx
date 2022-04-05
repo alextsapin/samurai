@@ -5,6 +5,7 @@ import {Route, Routes} from 'react-router-dom';
 import Profile from './components/Profile/Profile';
 
 import './sass/style.scss';
+import Footer from './components/Footer/Footer';
 
 type PostType = {
     id: number
@@ -33,6 +34,7 @@ const App = (props: AppPropsType) => {
                     </div>    
                 </div>
             </div>
+            <Footer/>
         </div>
     );
 }

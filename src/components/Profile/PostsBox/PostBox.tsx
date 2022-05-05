@@ -8,7 +8,7 @@ import Post from './Post/Post';
 import Button from '@material-ui/core/Button';
 
 // ЕС
-import {addPostTC, updatePostTC} from '../../../redux/reducers/profile/profile';
+import {addPostTC, updatePostTC, deletePostTC, editPostTC} from '../../../redux/reducers/profile/profile';
 
 // SL
 import {getNewPostTextSL, getPostBoxSL} from '../../../redux/selectors/profile/profile';
@@ -18,15 +18,14 @@ type PostBoxPropsType = {
 }
 
 type postType = {
-    id: number
+    id: string
     text: string
 }
 
-const PostBox = (props: any) => {
-    let newPostElement = React.createRef<HTMLTextAreaElement>();
+const PostBox = (props: any) => {    
+    const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const updatePost = () => {
-        let text = newPostElement.current?.value;
         props.updatePostTC(newPostElement.current?.value)
     }
 
@@ -35,19 +34,34 @@ const PostBox = (props: any) => {
         props.addPostTC()
     }
 
-    const postJSXElements = props.postBox.map((item: postType, index: number) => <Post key={index} message={item.text}/>)
+    const editPostHandler = (id: string, newText: string) => {
+        props.editPostTC(id, newText)
+    }
+
+    const postJSXElements = props.postBox.map((item: postType, index: number) => (
+        <Post 
+            key={index} 
+            id={item.id} 
+            message={item.text} 
+            deletePost={() => props.deletePostTC(item.id)} 
+            editPost={(newText: string) => editPostHandler(item.id, newText)}
+        />
+    ))
 
     return (
         <div className="row">
             <div className="col-12">
-                <h2 className="title title_first">Мои посты:</h2>
 
                 {postJSXElements}
-
-                <h2 className="title title_second">Добавить новый пост</h2>
-
+                
                 <form className="formPost">
-                    <textarea ref={newPostElement} onChange={updatePost} value={props.newPostText} className={css.textarea} placeholder="Мой новый пост..."/>
+                    <textarea 
+                        ref={newPostElement} 
+                        onChange={updatePost} 
+                        value={props.newPostText} 
+                        className={'form-control ' + css.textarea} 
+                        placeholder="Мой новый пост..." 
+                    />
                     <br/>
                     <Button variant="contained" color="primary" onClick={addPost} className="mt-2 float-right" type="submit">Добавить</Button>
                 </form>
@@ -63,4 +77,4 @@ const mapStateToProps = (state: any) => {
     }
 }
 
-export default compose(connect(mapStateToProps, {addPostTC, updatePostTC}))(PostBox);
+export default compose(connect(mapStateToProps, {addPostTC, updatePostTC, deletePostTC, editPostTC}))(PostBox);

@@ -1,6 +1,5 @@
 import React from 'react';
 
-
 const ProfileInfo = () => {
     return (
         <div className="mt-5">

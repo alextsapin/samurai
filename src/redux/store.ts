@@ -3,12 +3,14 @@ import {combineReducers, createStore, applyMiddleware} from 'redux';
 import thunkMiddleware from 'redux-thunk';
 
 // Reducers
-import profileReducer from './reducers/profile/profile';
+import profileReducer from './reducers/profile';
+import usersReducer from './reducers/users'
 
 
 // Объединим редьюсеры
 let rootReducer = combineReducers({
-    profile: profileReducer
+    profile: profileReducer,
+    users: usersReducer
 });
 
 // Создадим store c помощью redux

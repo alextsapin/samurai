@@ -3,6 +3,7 @@ import Navbar from './components/Navbar/Navbar';
 import Dialogs from './components/Dialogs/Dialogs'
 import {Route, Routes} from 'react-router-dom';
 import Profile from './components/Profile/Profile';
+import UserBox from './components/Users/Users'
 
 import './sass/style.scss';
 import Footer from './components/Footer/Footer';
@@ -28,6 +29,7 @@ const App = (props: AppPropsType) => {
                     </div>
                     <div className="col-md-8">
                         <Routes>
+                            <Route path='/' element={<UserBox/>}/>
                             <Route path='/dialogs' element={<Dialogs/>}/>
                             <Route path='/profile' element={<Profile/>}/>
                         </Routes>

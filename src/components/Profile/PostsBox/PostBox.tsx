@@ -8,10 +8,10 @@ import Post from './Post/Post';
 import Button from '@material-ui/core/Button';
 
 // ЕС
-import {addPostTC, updatePostTC, deletePostTC, editPostTC} from '../../../redux/reducers/profile/profile';
+import {addPostTC, updatePostTC, deletePostTC, editPostTC} from '../../../redux/reducers/profile';
 
 // SL
-import {getNewPostTextSL, getPostBoxSL} from '../../../redux/selectors/profile/profile';
+import {getNewPostTextSL, getPostBoxSL} from '../../../redux/selectors/profile';
 
 type PostBoxPropsType = {
     postBox: Array<postType>

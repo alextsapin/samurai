@@ -2,7 +2,6 @@ html {
 	height: 100%;
     scroll-behavior: smooth;
     font-size: 16px;
-
 }
 
 *, *:before, *:after, *:focus {
@@ -53,4 +52,22 @@ img {
     text-align: center;
     font-size: 16px;
     font-weight: bold;
+}
+
+.user__status {
+    text-align: center;
+    font-style: italic;
+}
+
+.user__avatar {
+    display: block;
+    margin: 15px auto;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.user__button {
+    display: block !important;
+    margin: 20px auto !important;
 }

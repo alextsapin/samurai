@@ -1,12 +1,12 @@
+import React from 'react';
 import Header from './components/Header/Header';
-import Navbar from './components/Navbar/Navbar';
 import Dialogs from './components/Dialogs/Dialogs'
 import {Route, Routes} from 'react-router-dom';
 import Profile from './components/Profile/Profile';
-import UserBox from './components/Users/Users'
-
-import './sass/style.scss';
+import UserBox from './components/Users/Users';
 import Footer from './components/Footer/Footer';
+import Container from '@mui/material/Container';
+import './style.scss';
 
 type PostType = {
     id: number
@@ -22,20 +22,13 @@ const App = (props: AppPropsType) => {
     return (
         <div>
             <Header/>
-            <div className="container">
-                <div className="row">
-                    <div className="col-md-4">
-                        <Navbar/>
-                    </div>
-                    <div className="col-md-8">
-                        <Routes>
-                            <Route path='/' element={<UserBox/>}/>
-                            <Route path='/dialogs' element={<Dialogs/>}/>
-                            <Route path='/profile' element={<Profile/>}/>
-                        </Routes>
-                    </div>    
-                </div>
-            </div>
+            <Container fixed>
+                <Routes>
+                    <Route path='/' element={<UserBox/>}/>
+                    <Route path='/dialogs' element={<Dialogs/>}/>
+                    <Route path='/profile' element={<Profile/>}/>
+                </Routes>
+            </Container>
             <Footer/>
         </div>
     );

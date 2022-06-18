@@ -1,19 +1,9 @@
 import {Dispatch} from 'redux';
 import {v1} from 'uuid';
+import {getAllUsersAPI} from '../../api/api'
 
 const initialState = {
-    userBox: [
-        {
-            id: v1(),
-            followed: false,
-            fullName: 'Jora',
-            status: 'Hello everyone!',
-            location: {
-                city: 'KLD',
-                country: 'RF'
-            }
-        }
-    ]
+    userBox: null
 }
 
 const usersReducer = (state = initialState, action: any) => {
@@ -21,7 +11,12 @@ const usersReducer = (state = initialState, action: any) => {
 
         case 'FOLLOW':
         return {
-            ...state, userBox: state.userBox.map(item => item.id === action.id ? item.followed = true : item)
+           // ...state, userBox: state.userBox.map(item => item.id === action.id ? item.followed = true : item)
+        }
+
+        case 'SET_USERS':
+        return {
+            ...state, userBox: action.data
         }
 
         default:
@@ -37,9 +32,16 @@ const unfollowAC = (id: string | number) => ({
     type: 'UPDATE_POST'
 })
 
+const setUsersAC = (data: any) => ({
+    type: 'SET_USERS',
+    data
+})
+
 export const getUsersTC = () => {
     return (dispatch: Dispatch) => {
-        //dispatch(editPostAC(id, newText))
+        getAllUsersAPI().then(data => {
+            dispatch(setUsersAC(data))
+        })
     }
 }
 

@@ -38,7 +38,7 @@ type UserPropsType = {
 const User = (props: UserPropsType) => {
     
     return (
-        <Grid item md={3}>
+        <Grid item lg={3} md={4} sm={6} xs={12}>
             <Paper className="user" elevation={3}>
                 <p className="user__name">{props.name}</p>
                 <p className="user__status">{props.status !== null ? props.status : '...'}</p>
@@ -78,7 +78,7 @@ class UserBox extends React.Component<PropsType> {
         
         return (
             <Container fixed>
-                <Grid container spacing={3}>
+                <Grid container spacing={3} className="p-0">
                     {UserBoxJSX}
                 </Grid>
             </Container>

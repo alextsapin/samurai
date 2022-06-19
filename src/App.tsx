@@ -12,13 +12,11 @@ const App = () => {
     return (
         <div>
             <Header/>
-            <Container fixed>
-                <Routes>
-                    <Route path='/' element={<UserBox/>}/>
-                    <Route path='/dialogs' element={<Dialogs/>}/>
-                    <Route path='/profile' element={<Profile/>}/>
-                </Routes>
-            </Container>
+            <Routes>
+                <Route path='/' element={<UserBox/>}/>
+                <Route path='/dialogs' element={<Dialogs/>}/>
+                <Route path='/profile' element={<Profile/>}/>
+            </Routes>
             <Footer/>
         </div>
     );

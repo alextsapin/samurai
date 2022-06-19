@@ -8,10 +8,8 @@ import {getUsersTC} from '../../redux/reducers/users';
 import {Img} from 'react-image';
 import Skeleton from '@mui/material/Skeleton';
 import Button from '@mui/material/Button';
-
-
 import user from '../../images/user.png';
-
+import Preloader from '../Preloader/Preloader';
 
 type PropsType = {
     userBox: Array<{
@@ -57,14 +55,17 @@ const User = (props: UserPropsType) => {
     )
 }
 
-const UserBox = (props: PropsType) => {
-    React.useEffect(()=> {
-        props.getUsersTC()
-    },[])
+class UserBox extends React.Component<PropsType> {
+    componentDidMount() {
+        this.props.getUsersTC()
+    }
     
-    let UserBoxJSX;
-    if(props.userBox) {
-        UserBoxJSX = props.userBox.map((item: any, index: number) => {
+    render() {
+        if(this.props.userBox === null) {
+            return <Preloader/>
+        }
+
+        const UserBoxJSX = this.props.userBox.map((item: any, index: number) => {
             return (
                 <User 
                     key={index} 
@@ -74,16 +75,16 @@ const UserBox = (props: PropsType) => {
                 />
             )
         })
-    }
-    
-    return (
-        <Container fixed>
-            <Grid container spacing={3}>
-                {UserBoxJSX}
-            </Grid>
-        </Container>
+        
+        return (
+            <Container fixed>
+                <Grid container spacing={3}>
+                    {UserBoxJSX}
+                </Grid>
+            </Container>
 
-    );
+        )
+    }
 }
 
 const mapStateToProps = (state: any) => {

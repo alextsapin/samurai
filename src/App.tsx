@@ -6,19 +6,9 @@ import Profile from './components/Profile/Profile';
 import UserBox from './components/Users/Users';
 import Footer from './components/Footer/Footer';
 import Container from '@mui/material/Container';
-import './style.scss';
+import './main.scss';
 
-type PostType = {
-    id: number
-    message: string
-    likeCount: number
-}
-
-type AppPropsType = {
-    postBox?: Array<PostType>
-}
-
-const App = (props: AppPropsType) => {
+const App = () => {
     return (
         <div>
             <Header/>

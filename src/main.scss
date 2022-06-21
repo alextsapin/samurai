@@ -4,6 +4,10 @@ html {
     font-size: 16px;
 }
 
+* {
+    font-family: 'Open Sans', sans-serif !important;
+}
+
 *, *:before, *:after, *:focus {
 	box-sizing: border-box;
     outline: none !important;
@@ -11,8 +15,6 @@ html {
 
 body {
     height: 100%;
-	font-family: 'OpenSans', sans-serif;
-    font-family: 'Roboto', serif;
     background: #E7EBF0;
     font-size: 16px;
     font-weight: 400;
@@ -20,8 +22,8 @@ body {
 }
 
 header {
-    background: #222222;
-    padding: 10px 0;
+    padding-top: 5px;
+    padding-bottom: 5px;
     margin-bottom: 50px;
 }
 

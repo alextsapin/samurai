@@ -4,13 +4,15 @@ import thunkMiddleware from 'redux-thunk';
 
 // Reducers
 import profileReducer from './reducers/profile';
-import usersReducer from './reducers/users'
+import usersReducer from './reducers/users';
+import chatReducer from './reducers/chat';
 
 
 // Объединим редьюсеры
 let rootReducer = combineReducers({
     profile: profileReducer,
-    users: usersReducer
+    users: usersReducer,
+    chat: chatReducer
 });
 
 // Создадим store c помощью redux

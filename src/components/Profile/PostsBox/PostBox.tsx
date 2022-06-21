@@ -1,6 +1,7 @@
 import React from 'react';
-import {compose} from 'redux';
 import {connect} from 'react-redux';
+import Container from '@mui/material/Container';
+import Grid from '@mui/material/Grid';
 
 import css from './style.module.scss'
 import Post from './Post/Post';
@@ -49,24 +50,26 @@ const PostBox = (props: any) => {
     ))
 
     return (
-        <div className="row">
-            <div className="col-12">
+        <Container fixed>
+            <Grid container>
+                <Grid item lg={8}>
+                    {postJSXElements}
+            
+                    <form className="formPost">
+                        <textarea 
+                            ref={newPostElement} 
+                            onChange={updatePost} 
+                            value={props.newPostText} 
+                            className={'form-control ' + css.textarea} 
+                            placeholder="Мой новый пост..." 
+                        />
+                        <br/>
+                        <Button variant="contained" color="primary" onClick={addPost} className="mt-2 float-right" type="submit">Добавить</Button>
+                    </form>
+                </Grid>
+            </Grid>
+        </Container>
 
-                {postJSXElements}
-                
-                <form className="formPost">
-                    <textarea 
-                        ref={newPostElement} 
-                        onChange={updatePost} 
-                        value={props.newPostText} 
-                        className={'form-control ' + css.textarea} 
-                        placeholder="Мой новый пост..." 
-                    />
-                    <br/>
-                    <Button variant="contained" color="primary" onClick={addPost} className="mt-2 float-right" type="submit">Добавить</Button>
-                </form>
-            </div>
-        </div>
     )
 }
 
@@ -77,4 +80,4 @@ const mapStateToProps = (state: any) => {
     }
 }
 
-export default compose(connect(mapStateToProps, {addPostTC, updatePostTC, deletePostTC, editPostTC}))(PostBox);
+export default connect(mapStateToProps, {addPostTC, updatePostTC, deletePostTC, editPostTC})(PostBox);

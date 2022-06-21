@@ -1,3 +1,8 @@
+// Разрешения
+$notebook: 1366px;
+$mobile: 992px;
+
+
 html {
 	height: 100%;
     scroll-behavior: smooth;
@@ -29,12 +34,10 @@ header {
 
 footer {
     margin-top: 50px;
+    padding-top: 50px;
+    padding-bottom: 50px;
     background: #222222;
     min-height: 100px;
-}
-
-.footer__img {
-    height: 60px;
 }
 
 .logo {

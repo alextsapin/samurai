@@ -7,7 +7,7 @@ import UserBox from './components/Users/Users';
 import Footer from './components/Footer/Footer';
 
 import './font/OpenSans.css';
-import './main.scss';
+import './sass/main.scss';
 
 const App = () => {
     return (

@@ -8,10 +8,15 @@ const instance = axios.create({
     }
 });
 
-// Получим используемые языки
 export const getAllUsersAPI = () => {  
-    return instance.get(`users?page=500&count=10`).then(response => {
+    return instance.get(`users?page=500&count=16`).then(response => {
         console.log(response.data)
         return response.data.items; 
+    })
+}
+
+export const getUsersCountAPI = () => {  
+    return instance.get(`users`).then(response => {
+        return response.data.totalCount; 
     })
 }

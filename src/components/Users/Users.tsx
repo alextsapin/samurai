@@ -1,30 +1,19 @@
-import React from 'react'
-import {getAllUsersSL} from '../../redux/selectors/users';
+import React from 'react';
 import {connect} from 'react-redux';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Paper from '@mui/material/Paper';
-import {getUsersTC} from '../../redux/reducers/users';
 import {Img} from 'react-image';
 import Skeleton from '@mui/material/Skeleton';
 import Button from '@mui/material/Button';
 import user from '../../images/user.png';
 import Preloader from '../Preloader/Preloader';
+import Paginator from '../Paginator/Paginator';
 
-type PropsType = {
-    userBox: Array<{
-        name: string
-        id: number
-        uniquerName?: null
-        photos: {
-            small: null | string
-            large: null | string
-        }
-        status: null | string
-        followed: boolean
-    }>
-    getUsersTC: () => void
-}
+import {getAllUsersSL, getUsersCountSL} from '../../redux/selectors/users';
+import {getAllUsersTC} from '../../redux/reducers/users';
+
+import css from './Users.module.scss';
 
 type UserPropsType = {
     name: string
@@ -36,7 +25,6 @@ type UserPropsType = {
 }
 
 const User = (props: UserPropsType) => {
-    
     return (
         <Grid item lg={3} md={4} sm={6} xs={12}>
             <Paper className="user" elevation={3}>
@@ -44,23 +32,38 @@ const User = (props: UserPropsType) => {
                 <p className="user__status">{props.status !== null ? props.status : '...'}</p>
                 {
                     props.photo !== null
-                    ? <Img className="user__avatar" src={props.photo} loader={<Skeleton variant="circular" width={40} height={40}/>} alt="img"/>
-                    : <Img className="user__avatar" src={user} loader={<Skeleton variant="circular" width={40} height={40}/>} alt="img"/>
+                    ? <Img className="user__avatar" src={props.photo} loader={<Skeleton variant="circular" width={100} height={100}/>} alt="ava"/>
+                    : <Img className="user__avatar" src={user} loader={<Skeleton className="user__avatar" variant="circular" width={100} height={100}/>} alt="ava"/>
                 }
-
                 <Button className="user__button" variant="contained">FOLLOW</Button>
-
             </Paper>
         </Grid>
     )
 }
 
-class UserBox extends React.Component<PropsType> {
+type UserBoxPropsType = {
+    usersCount: number
+    userBox: Array<{
+        name: string
+        id: number
+        uniquerName?: null
+        photos: {
+            small: null | string
+            large: null | string
+        }
+        status: null | string
+        followed: boolean
+    }>
+    getAllUsersTC: () => void
+}
+
+class UserBox extends React.Component<UserBoxPropsType> {
     componentDidMount() {
-        this.props.getUsersTC()
+        this.props.getAllUsersTC()
     }
     
     render() {
+        console.log(this.props)
         if(this.props.userBox === null) {
             return <Preloader/>
         }
@@ -78,9 +81,13 @@ class UserBox extends React.Component<PropsType> {
         
         return (
             <Container fixed>
+                <h1 className="title title_first">
+                    Всего <span className={css.count}>{new Intl.NumberFormat('ru-RU').format(this.props.usersCount)}</span> пользователей
+                </h1>
                 <Grid container spacing={3} className="p-0">
                     {UserBoxJSX}
                 </Grid>
+                <Paginator/>
             </Container>
 
         )
@@ -89,8 +96,9 @@ class UserBox extends React.Component<PropsType> {
 
 const mapStateToProps = (state: any) => {
     return {
+        usersCount: getUsersCountSL(state),
         userBox: getAllUsersSL(state)
     }
 }
 
-export default connect(mapStateToProps, {getUsersTC})(UserBox);
+export default connect(mapStateToProps, {getAllUsersTC})(UserBox);

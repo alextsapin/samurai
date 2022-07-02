@@ -1,9 +1,13 @@
 import {Dispatch} from 'redux';
 import {v1} from 'uuid';
-import {getAllUsersAPI} from '../../api/api'
+import {getAllUsersAPI, getUsersCountAPI} from '../../api/api'
 
 const initialState = {
-    userBox: null
+    userBox: null,
+    usersCount: 0,
+    pageSize: 16,
+    currentPage: 1,
+    pageArray: []
 }
 
 const usersReducer = (state = initialState, action: any) => {
@@ -19,16 +23,31 @@ const usersReducer = (state = initialState, action: any) => {
             ...state, userBox: action.data
         }
 
+        case 'SET_USERS_COUNT':
+        return {
+            ...state, usersCount: action.count
+        }
+
+        case 'SET_CURRENT_PAGE':
+        return {
+            ...state, currentPage: action.currentPage
+        }
+
+        case 'SET_PAGE_ARRAY':
+        return {
+            ...state, currentPage: action.currentPage
+        }
+
         default:
         return state
     }
 }
 
-const followAC = (id: string | number) => ({
+const followAC = (id: string) => ({
     type: 'FOLLOW'
 })
 
-const unfollowAC = (id: string | number) => ({
+const unfollowAC = (id: string) => ({
     type: 'UPDATE_POST'
 })
 
@@ -37,8 +56,46 @@ const setUsersAC = (data: any) => ({
     data
 })
 
-export const getUsersTC = () => {
+const setUsersCountAC = (count: number) => ({
+    type: 'SET_USERS_COUNT',
+    count
+})
+
+const setCurrentPageAC = (currentPage: number) => ({
+    type: 'SET_CURRENT_PAGE',
+    currentPage
+})
+
+const setPageBoxAC = (pageArray: Array<number>) => ({
+    type: 'SET_CURRENT_PAGE',
+    pageArray
+})
+
+export const calcTotalPagesTC = (usersCount: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
+        let total = Math.ceil(usersCount / pageSize)
+        let pageArray = []
+
+        for(let i = 1; i <= total; i++) {
+            pageArray.push(i)
+        }
+
+        dispatch(setPageBoxAC(pageArray))
+    }
+}
+
+export const getAllUsersTC = (currentPage: number) => {
+    return (dispatch: Dispatch) => {
+
+        // Текущая страница
+        dispatch(setCurrentPageAC(currentPage))
+
+        // Число пользователей
+        getUsersCountAPI().then(count => {
+            dispatch(setUsersCountAC(count))
+        })
+
+        // Все пользователи
         getAllUsersAPI().then(data => {
             dispatch(setUsersAC(data))
         })

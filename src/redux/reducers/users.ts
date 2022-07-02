@@ -6,7 +6,7 @@ const initialState = {
     userBox: null,
     usersCount: 0,
     pageSize: 16,
-    currentPage: 1,
+    currentPage: 4,
     pageArray: []
 }
 
@@ -35,7 +35,7 @@ const usersReducer = (state = initialState, action: any) => {
 
         case 'SET_PAGE_ARRAY':
         return {
-            ...state, currentPage: action.currentPage
+            ...state, pageArray: action.pageArray
         }
 
         default:
@@ -67,7 +67,7 @@ const setCurrentPageAC = (currentPage: number) => ({
 })
 
 const setPageBoxAC = (pageArray: Array<number>) => ({
-    type: 'SET_CURRENT_PAGE',
+    type: 'SET_PAGE_ARRAY',
     pageArray
 })
 
@@ -84,7 +84,7 @@ export const calcTotalPagesTC = (usersCount: number, pageSize: number) => {
     }
 }
 
-export const getAllUsersTC = (currentPage: number) => {
+export const getAllUsersTC = (currentPage: number, usersCount: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
 
         // Текущая страница
@@ -96,9 +96,11 @@ export const getAllUsersTC = (currentPage: number) => {
         })
 
         // Все пользователи
-        getAllUsersAPI().then(data => {
+        getAllUsersAPI(currentPage, pageSize).then(data => {
             dispatch(setUsersAC(data))
         })
+
+        dispatch(calcTotalPagesTC(usersCount, pageSize) as any)
     }
 }
 

@@ -10,10 +10,10 @@ import user from '../../images/user.png';
 import Preloader from '../Preloader/Preloader';
 import Paginator from '../Paginator/Paginator';
 
-import {getAllUsersSL, getUsersCountSL} from '../../redux/selectors/users';
+import {getAllUsersSL, getUsersCountSL, getPageSizeSL, getСurrentPageSL, getPageArraySL} from '../../redux/selectors/users';
 import {getAllUsersTC} from '../../redux/reducers/users';
 
-import css from './Users.module.scss';
+import css from './css.module.scss';
 
 type UserPropsType = {
     name: string
@@ -43,6 +43,9 @@ const User = (props: UserPropsType) => {
 
 type UserBoxPropsType = {
     usersCount: number
+    currentPage: number
+    pageSize: number
+    pageArray: Array<number>
     userBox: Array<{
         name: string
         id: number
@@ -54,16 +57,24 @@ type UserBoxPropsType = {
         status: null | string
         followed: boolean
     }>
-    getAllUsersTC: () => void
+    getAllUsersTC: (currentPage: number, usersCount: number, pageSize: number) => void
 }
 
 class UserBox extends React.Component<UserBoxPropsType> {
     componentDidMount() {
-        this.props.getAllUsersTC()
+        this.props.getAllUsersTC(this.props.currentPage, this.props.usersCount, this.props.pageSize)
     }
+
+    getPages = () => {
+        this.props.getAllUsersTC(this.props.currentPage, this.props.usersCount, this.props.pageSize)
+    }
+
+    pageChangeHandler = (pageNumber: number) => {
+        this.props.getAllUsersTC(pageNumber, this.props.usersCount, this.props.pageSize)
+    }
+
     
     render() {
-        console.log(this.props)
         if(this.props.userBox === null) {
             return <Preloader/>
         }
@@ -81,13 +92,18 @@ class UserBox extends React.Component<UserBoxPropsType> {
         
         return (
             <Container fixed>
+                <button onClick={this.getPages}>Get pages</button>
                 <h1 className="title title_first">
                     Всего <span className={css.count}>{new Intl.NumberFormat('ru-RU').format(this.props.usersCount)}</span> пользователей
                 </h1>
                 <Grid container spacing={3} className="p-0">
                     {UserBoxJSX}
                 </Grid>
-                <Paginator/>
+                <Paginator 
+                    currentPage={this.props.currentPage} 
+                    pageArray={this.props.pageArray} 
+                    pageChange={(pageNumber: number) => this.pageChangeHandler(pageNumber)}
+                />
             </Container>
 
         )
@@ -97,7 +113,10 @@ class UserBox extends React.Component<UserBoxPropsType> {
 const mapStateToProps = (state: any) => {
     return {
         usersCount: getUsersCountSL(state),
-        userBox: getAllUsersSL(state)
+        userBox: getAllUsersSL(state),
+        pageSize: getPageSizeSL(state),
+        currentPage: getСurrentPageSL(state),
+        pageArray: getPageArraySL(state)
     }
 }
 

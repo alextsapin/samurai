@@ -6,7 +6,7 @@ const initialState = {
     userBox: null,
     usersCount: 0,
     pageSize: 16,
-    currentPage: 4,
+    currentPage: 1,
     pageArray: []
 }
 
@@ -86,6 +86,8 @@ export const calcTotalPagesTC = (usersCount: number, pageSize: number) => {
 
 export const getAllUsersTC = (currentPage: number, usersCount: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
+
+        dispatch(setUsersAC(null))
 
         // Текущая страница
         dispatch(setCurrentPageAC(currentPage))

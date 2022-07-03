@@ -1,7 +1,6 @@
 import React from 'react';
-import css from './Paginator.module.scss';
+import css from './css.module.scss';
 import Button from '@mui/material/Button';
-
 
 type PaginatorPropsType = {
     currentPage: number

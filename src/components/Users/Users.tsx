@@ -73,7 +73,6 @@ class UserBox extends React.Component<UserBoxPropsType> {
         this.props.getAllUsersTC(pageNumber, this.props.usersCount, this.props.pageSize)
     }
 
-    
     render() {
         if(this.props.userBox === null) {
             return <Preloader/>

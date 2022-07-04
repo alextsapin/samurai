@@ -41,7 +41,7 @@ const PostBox = (props: any) => {
 
     const postJSXElements = props.postBox.map((item: postType, index: number) => (
         <Post 
-            key={index} 
+            key={index}
             id={item.id} 
             message={item.text} 
             deletePost={() => props.deletePostTC(item.id)} 
@@ -69,7 +69,6 @@ const PostBox = (props: any) => {
                 </Grid>
             </Grid>
         </Container>
-
     )
 }
 

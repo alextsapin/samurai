@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './style.module.scss';
+import css from './css.module.scss';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {useSelector} from 'react-redux';

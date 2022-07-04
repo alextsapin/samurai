@@ -11,7 +11,7 @@ import Preloader from '../Preloader/Preloader';
 import Paginator from '../Paginator/Paginator';
 
 import {getAllUsersSL, getUsersCountSL, getPageSizeSL, getСurrentPageSL, getPageArraySL} from '../../redux/selectors/users';
-import {getAllUsersTC} from '../../redux/reducers/users';
+import {getUsersTC} from '../../redux/reducers/users';
 
 import css from './css.module.scss';
 
@@ -57,20 +57,20 @@ type UserBoxPropsType = {
         status: null | string
         followed: boolean
     }>
-    getAllUsersTC: (currentPage: number, usersCount: number, pageSize: number) => void
+    getUsersTC: (currentPage: number, usersCount: number, pageSize: number) => void
 }
 
-class UserBox extends React.Component<UserBoxPropsType> {
+class UserList extends React.Component<UserBoxPropsType> {
     componentDidMount() {
-        this.props.getAllUsersTC(this.props.currentPage, this.props.usersCount, this.props.pageSize)
+        this.props.getUsersTC(this.props.currentPage, this.props.usersCount, this.props.pageSize)
     }
 
     getPages = () => {
-        this.props.getAllUsersTC(this.props.currentPage, this.props.usersCount, this.props.pageSize)
+        this.props.getUsersTC(this.props.currentPage, this.props.usersCount, this.props.pageSize)
     }
 
     pageChangeHandler = (pageNumber: number) => {
-        this.props.getAllUsersTC(pageNumber, this.props.usersCount, this.props.pageSize)
+        this.props.getUsersTC(pageNumber, this.props.usersCount, this.props.pageSize)
     }
 
     render() {
@@ -119,4 +119,4 @@ const mapStateToProps = (state: any) => {
     }
 }
 
-export default connect(mapStateToProps, {getAllUsersTC})(UserBox);
+export default connect(mapStateToProps, {getUsersTC})(UserList);

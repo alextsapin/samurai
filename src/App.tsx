@@ -2,8 +2,8 @@ import React from 'react';
 import Header from './components/Header/Header';
 import Dialogs from './components/Chat/Chat'
 import {Route, Routes} from 'react-router-dom';
-import Profile from './components/Profile/Profile';
-import UserBox from './components/Users/Users';
+import Profile from './components/Profile/ProfileWrap';
+import UserBox from './components/User/Users';
 import Footer from './components/Footer/Footer';
 
 import './font/OpenSans.css';

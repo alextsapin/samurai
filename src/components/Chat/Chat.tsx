@@ -1,5 +1,5 @@
 import React from 'react';
-import css from './css.module.scss';
+import css from './Chat.module.scss';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import {useSelector} from 'react-redux';
@@ -35,7 +35,7 @@ const Message = (props: MessagePropsType) => {
 
 const Chat = () => {
     const chatBox = useSelector<any, any>(state => state.chat.chatBox).map((item: any, index: number) => {
-        return <Message name={item.name} image={item.image} message={item.message}/>
+        return <Message key={index} name={item.name} image={item.image} message={item.message}/>
     })
 
     return (

@@ -9,13 +9,16 @@ import chatReducer from './reducers/chat';
 
 
 // Объединим редьюсеры
-let rootReducer = combineReducers({
+const rootReducer = combineReducers({
     profile: profileReducer,
     users: usersReducer,
     chat: chatReducer
 });
 
+type rootReducerType = typeof rootReducer;
+export type AppStateType = ReturnType<rootReducerType>;
+
 // Создадим store c помощью redux
-let store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
+const store = createStore(rootReducer, applyMiddleware(thunkMiddleware));
 
 export default store;

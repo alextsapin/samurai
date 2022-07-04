@@ -8,14 +8,24 @@ const instance = axios.create({
     }
 });
 
-export const getAllUsersAPI = (currentPage: number, pageSize: number) => {  
+// Получим пользователей
+export const getUsersAPI = (currentPage: number, pageSize: number) => {  
     return instance.get(`users?page=${currentPage}&count=${pageSize}`).then(response => {
         return response.data.items; 
     })
 }
 
+// Получим число пользователей
 export const getUsersCountAPI = () => {  
     return instance.get(`users`).then(response => {
         return response.data.totalCount; 
     })
+}
+
+// Получим профиль пользователя
+export const getUserProfileAPI = (id: number) => {
+    return instance.get(`profile/${id}`)
+    .then(response => {
+        return response.data;
+    });
 }

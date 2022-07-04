@@ -1,5 +1,6 @@
 import {Dispatch} from 'redux';
 import {v1} from 'uuid';
+import {getUserProfileAPI} from '../../api/api';
 
 const initialState = {
     postBox: [
@@ -7,7 +8,8 @@ const initialState = {
         {id: v1(), text: "Разработана система борьбы с астеройдами."},
         {id: v1(), text: "В Монголии нашли нефть."}
     ],
-    newPostText: ''
+    newPostText: '',
+    userProfile: null
 }
 
 type postType = {
@@ -46,6 +48,12 @@ const profileReducer = (state = initialState, action: any) => {
             }
         }
 
+        case 'SET_USER_PROFILE': {
+            return {
+                ...state, userProfile: action.userProfile
+            }
+        }
+
         default:
         return state
     }
@@ -71,6 +79,12 @@ const editPostAC = (id: string, newText: string) => ({
     newText: newText
 })
 
+const setUserProfileAC = (userProfile: any) => ({
+    type: 'SET_USER_PROFILE',
+    userProfile
+})
+
+// Thunk creators
 export const addPostTC = () => {
     return (dispatch: Dispatch) => {
         dispatch(addPostAC())
@@ -92,6 +106,14 @@ export const deletePostTC = (id: string) => {
 export const editPostTC = (id: string, newText: string) => {
     return (dispatch: Dispatch) => {
         dispatch(editPostAC(id, newText))
+    }
+}
+
+export const getUserProfileTC = (id: number) => {
+    return (dispatch: Dispatch) => {
+        getUserProfileAPI(id).then(data => {
+            dispatch(setUserProfileAC(data))
+        })
     }
 }
 

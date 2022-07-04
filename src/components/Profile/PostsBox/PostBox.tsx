@@ -4,7 +4,7 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 
 import css from './style.module.scss'
-import Post from './Post/Post';
+import Post from '../Post/Post';
 
 import Button from '@material-ui/core/Button';
 
@@ -50,26 +50,21 @@ const PostBox = (props: any) => {
     ))
 
     return (
-        <Container fixed>
-            <Grid container>
-                <Grid item lg={8}>
-                    {postJSXElements}
-            
-                    <form className="formPost">
-                        <textarea 
-                            ref={newPostElement} 
-                            onChange={updatePost} 
-                            value={props.newPostText} 
-                            className={'form-control ' + css.textarea} 
-                            placeholder="Мой новый пост..." 
-                        />
-                        <br/>
-                        <Button variant="contained" color="primary" onClick={addPost} className="mt-2 float-right" type="submit">Добавить</Button>
-                    </form>
-                </Grid>
-            </Grid>
-        </Container>
-    )
+            <div>
+                {postJSXElements}
+                <form className="formPost">
+                    <textarea 
+                        ref={newPostElement} 
+                        onChange={updatePost} 
+                        value={props.newPostText} 
+                        className={'form-control ' + css.textarea} 
+                        placeholder="Мой новый пост..." 
+                    />
+                    <br/>
+                    <Button variant="contained" color="primary" onClick={addPost} className="mt-2 float-right" type="submit">Добавить</Button>
+                </form>
+            </div>
+        )
 }
 
 const mapStateToProps = (state: any) => {

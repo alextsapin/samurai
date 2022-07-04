@@ -1,6 +1,6 @@
 import {Dispatch} from 'redux';
 import {v1} from 'uuid';
-import {getAllUsersAPI, getUsersCountAPI} from '../../api/api'
+import {getUsersAPI, getUsersCountAPI} from '../../api/api'
 
 const initialState = {
     userBox: null,
@@ -84,7 +84,7 @@ export const calcTotalPagesTC = (usersCount: number, pageSize: number) => {
     }
 }
 
-export const getAllUsersTC = (currentPage: number, usersCount: number, pageSize: number) => {
+export const getUsersTC = (currentPage: number, usersCount: number, pageSize: number) => {
     return (dispatch: Dispatch) => {
 
         dispatch(setUsersAC(null))
@@ -98,7 +98,7 @@ export const getAllUsersTC = (currentPage: number, usersCount: number, pageSize:
         })
 
         // Все пользователи
-        getAllUsersAPI(currentPage, pageSize).then(data => {
+        getUsersAPI(currentPage, pageSize).then(data => {
             dispatch(setUsersAC(data))
         })
 

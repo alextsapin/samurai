@@ -3,7 +3,7 @@ import css from './style.module.scss';
 import Paper from '@mui/material/Paper';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-import ava from '../../../../images/avatar.jpg';
+import ava from '../../../images/avatar.jpg';
 
 import TextField from '@mui/material/TextField';
 

@@ -7,7 +7,7 @@ import {Img} from 'react-image';
 import Skeleton from '@mui/material/Skeleton';
 import Button from '@mui/material/Button';
 import user from '../../images/user.png';
-import Preloader from '../Preloader/Preloader';
+import Preloader from '../UI/Preloader/Preloader';
 import Paginator from '../Paginator/Paginator';
 
 import {getAllUsersSL, getUsersCountSL, getPageSizeSL, getСurrentPageSL, getPageArraySL} from '../../redux/selectors/users';

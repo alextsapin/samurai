@@ -3,14 +3,13 @@ import AppBar from '@mui/material/AppBar';
 import MenuIcon from '@mui/icons-material/Menu';
 import Container from '@mui/material/Container';
 import Avatar from '@mui/material/Avatar';
-import Button from '@mui/material/Button';
 import {NavLink} from 'react-router-dom';
 import Skeleton from '@mui/material/Skeleton';
 import {Img} from 'react-image';
 import Tooltip from '@mui/material/Tooltip';
 
 import logo from '../../images/logo.png';
-import css from './css.module.scss';
+import css from './Header.module.scss';
 
 import LoginIcon from '@mui/icons-material/Login';
 import LogoutIcon from '@mui/icons-material/Logout';
@@ -63,9 +62,10 @@ const Header = () => {
                     <div className={css.avatarBox}>
                         <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
                         <Tooltip title="Logout">
-                            <LogoutIcon fontSize="large"/>
+                            <button className={css.button}>
+                                <LogoutIcon fontSize="large"/>
+                            </button>
                         </Tooltip>
-                        
                     </div>
 
                     <button className={css.menuButton} onClick={showMoblileMenu}>

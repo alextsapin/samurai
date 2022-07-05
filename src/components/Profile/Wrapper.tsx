@@ -1,18 +1,7 @@
 import React from 'react';
-import Profile from './Profile';
+import Profile from './Profile/Profile';
 import {connect} from 'react-redux';
-import Container from '@mui/material/Container';
-import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import {Img} from 'react-image';
-import Skeleton from '@mui/material/Skeleton';
-import Button from '@mui/material/Button';
-import user from '../../images/user.png';
-import Preloader from '../Preloader/Preloader';
-
-import {getAllUsersSL, getUsersCountSL, getPageSizeSL, getСurrentPageSL, getPageArraySL} from '../../redux/selectors/users';
-import {getUsersTC} from '../../redux/reducers/users';
-
+import Preloader from '../UI/Preloader/Preloader';
 import css from './css.module.scss';
 import {getUserProfileTC} from '../../redux/reducers/profile';
 import {getUserProfileSL} from '../../redux/selectors/profile';
@@ -30,19 +19,13 @@ class ProfileWrap extends React.Component<propsType> {
         this.props.getUserProfileTC(7020);
     }
 
-    getUserProfile() {
-        this.props.getUserProfileTC(7020);
-    }
-
     render() {
-        //console.log(this.props.userProfile)
         if(this.props.userProfile === null) {
             return <Preloader/>
         }
         
         return (
             <div>
-                <button onClick={this.getUserProfile}>Get info</button>
                 <Profile {...this.props}/>
             </div>
         )

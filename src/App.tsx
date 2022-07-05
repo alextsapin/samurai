@@ -2,7 +2,7 @@ import React from 'react';
 import Header from './components/Header/Header';
 import Dialogs from './components/Chat/Chat'
 import {Route, Routes} from 'react-router-dom';
-import Profile from './components/Profile/ProfileWrap';
+import Profile from './components/Profile/Wrapper';
 import UserBox from './components/User/Users';
 import Footer from './components/Footer/Footer';
 

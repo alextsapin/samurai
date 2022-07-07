@@ -1,0 +1,31 @@
+.card {
+    padding: 10px;
+}
+
+.name {
+    color: black;
+    text-align: center;
+    font-size: 16px;
+    font-weight: bold;
+    display: block;
+    margin: 0 auto;
+    text-decoration: none;
+}
+
+.status {
+    text-align: center;
+    font-style: italic;
+}
+
+.avatar {
+    display: block;
+    margin: 15px auto;
+    height: 100px;
+    width: 100px;
+    border-radius: 50%;
+}
+
+.button {
+    display: block !important;
+    margin: 20px auto !important;
+}

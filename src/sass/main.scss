@@ -68,37 +68,3 @@ img {
         }
     }
 }
-
-// Пользователь
-.user {
-    padding: 10px;
-}
-
-.user__name {
-    text-align: center;
-    font-size: 16px;
-    font-weight: bold;
-}
-
-.user__status {
-    text-align: center;
-    font-style: italic;
-}
-
-.user__avatar {
-    display: block;
-    margin: 15px auto;
-    height: 100px;
-    width: 100px;
-    border-radius: 50%;
-}
-
-.user__button {
-    display: block !important;
-    margin: 20px auto !important;
-}
-
-.preloader {
-    display: block;
-    margin: 100px auto;
-}

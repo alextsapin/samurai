@@ -22,6 +22,15 @@
     color: white;
 }
 
+.loginLink {
+    color: white;
+    text-decoration: none;
+    &:hover {
+        color: white;
+        text-decoration: none;
+    }
+}
+
 .menuButton {
     background: transparent;
     border: none;

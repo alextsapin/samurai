@@ -3,7 +3,7 @@ import Header from './components/Header/Header';
 import Dialogs from './components/Chat/Chat'
 import {Route, Routes} from 'react-router-dom';
 import Profile from './components/Profile/Wrapper';
-import UserBox from './components/User/Users';
+import UserList from './components/User/List/List';
 import Footer from './components/Footer/Footer';
 
 import './font/OpenSans.css';
@@ -14,9 +14,11 @@ const App = () => {
         <div>
             <Header/>
             <Routes>
-                <Route path='/' element={<UserBox/>}/>
+                <Route path='/' element={<UserList/>}/>
                 <Route path='/dialogs' element={<Dialogs/>}/>
-                <Route path='/profile' element={<Profile/>}/>
+                <Route path='/profile/' element={<Profile/>}>
+                    <Route path=':id' element={<Profile/>}/>
+                </Route>
             </Routes>
             <Footer/>
         </div>

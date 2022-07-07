@@ -1,12 +1,20 @@
-import axios, {AxiosResponse} from 'axios';
+import axios, {AxiosResponse} from 'axios'
 
 const instance = axios.create({
-    withCredentials: false,
+    withCredentials: true,
     baseURL: 'https://social-network.samuraijs.com/api/1.0/',
     headers: {
         'API-KEY': '1f975373-0b21-436f-bd12-e9e6f63d529e'
     }
 });
+
+// Получим данные авторизации
+export const authAPI = () => {
+    return instance.get(`auth/me`,{withCredentials: true}).then((response) => {
+        console.log(response.data)
+        return response.data; 
+    })
+}
 
 // Получим пользователей
 export const getUsersAPI = (currentPage: number, pageSize: number) => {  

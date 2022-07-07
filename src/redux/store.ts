@@ -6,13 +6,14 @@ import thunkMiddleware from 'redux-thunk';
 import profileReducer from './reducers/profile';
 import usersReducer from './reducers/users';
 import chatReducer from './reducers/chat';
-
+import authReducer from './reducers/auth';
 
 // Объединим редьюсеры
 const rootReducer = combineReducers({
     profile: profileReducer,
     users: usersReducer,
-    chat: chatReducer
+    chat: chatReducer,
+    auth: authReducer
 });
 
 type rootReducerType = typeof rootReducer;

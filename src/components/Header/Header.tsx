@@ -1,22 +1,56 @@
-import React from 'react';
-import AppBar from '@mui/material/AppBar';
-import MenuIcon from '@mui/icons-material/Menu';
-import Container from '@mui/material/Container';
-import Avatar from '@mui/material/Avatar';
-import {NavLink} from 'react-router-dom';
-import Skeleton from '@mui/material/Skeleton';
-import {Img} from 'react-image';
-import Tooltip from '@mui/material/Tooltip';
+import React from 'react'
+import AppBar from '@mui/material/AppBar'
+import MenuIcon from '@mui/icons-material/Menu'
+import Container from '@mui/material/Container'
+import Avatar from '@mui/material/Avatar'
+import {NavLink} from 'react-router-dom'
+import Skeleton from '@mui/material/Skeleton'
+import {Img} from 'react-image'
+import Tooltip from '@mui/material/Tooltip'
+import logo from '../../images/logo.png'
+import css from './Header.module.scss'
+import LoginIcon from '@mui/icons-material/Login'
+import LogoutIcon from '@mui/icons-material/Logout'
+import {setUserDataTC} from '../../redux/reducers/auth'
+import {useDispatch, useSelector} from 'react-redux'
+import {AppStateType} from '../../redux/store'
 
-import logo from '../../images/logo.png';
-import css from './Header.module.scss';
+const Login = () => {
+    return (
+        <Tooltip title="Login">
+            <NavLink to="/login" className={css.loginLink}>
+                <LoginIcon fontSize="large"/>
+            </NavLink>
+        </Tooltip>
+    )
+}
 
-import LoginIcon from '@mui/icons-material/Login';
-import LogoutIcon from '@mui/icons-material/Logout';
-
+const Logout = () => {
+    return (
+        <Tooltip title="Logout">
+            <button className={css.button}>
+                <LogoutIcon fontSize="large"/>
+            </button>
+        </Tooltip>
+    )
+}
 
 const Header = () => {
-    const [active, toggleActive] = React.useState(false);
+    const id = useSelector<AppStateType, number | null>(state => state.auth.id)
+
+    const [active, toggleActive] = React.useState(false)
+
+    const [login, toggleLogin] = React.useState(true)
+
+    const dispatch = useDispatch()
+
+    React.useEffect(() => {
+        dispatch(setUserDataTC())
+    }, [])
+
+    React.useEffect(() => {
+        console.log(id)
+    }, [id])
 
     const pages = [
         {
@@ -61,11 +95,12 @@ const Header = () => {
 
                     <div className={css.avatarBox}>
                         <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
-                        <Tooltip title="Logout">
-                            <button className={css.button}>
-                                <LogoutIcon fontSize="large"/>
-                            </button>
-                        </Tooltip>
+                        {
+                                login
+                            ?   <Login/>
+                            :   <Logout/>
+                        }
+                        
                     </div>
 
                     <button className={css.menuButton} onClick={showMoblileMenu}>
@@ -77,4 +112,4 @@ const Header = () => {
     )
 }
 
-export default Header;
+export default Header

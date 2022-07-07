@@ -2,44 +2,12 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Paper from '@mui/material/Paper';
-import {Img} from 'react-image';
-import Skeleton from '@mui/material/Skeleton';
-import Button from '@mui/material/Button';
-import user from '../../images/user.png';
-import Preloader from '../UI/Preloader/Preloader';
-import Paginator from '../Paginator/Paginator';
-
-import {getAllUsersSL, getUsersCountSL, getPageSizeSL, getСurrentPageSL, getPageArraySL} from '../../redux/selectors/users';
-import {getUsersTC} from '../../redux/reducers/users';
-
-import css from './css.module.scss';
-
-type UserPropsType = {
-    name: string
-    id?: number
-    uniquerName?: null
-    photo: string
-    status: null | string
-    followed?: boolean
-}
-
-const User = (props: UserPropsType) => {
-    return (
-        <Grid item lg={3} md={4} sm={6} xs={12}>
-            <Paper className="user" elevation={3}>
-                <p className="user__name">{props.name}</p>
-                <p className="user__status">{props.status !== null ? props.status : '...'}</p>
-                {
-                    props.photo !== null
-                    ? <Img className="user__avatar" src={props.photo} loader={<Skeleton variant="circular" width={100} height={100}/>} alt="ava"/>
-                    : <Img className="user__avatar" src={user} loader={<Skeleton className="user__avatar" variant="circular" width={100} height={100}/>} alt="ava"/>
-                }
-                <Button className="user__button" variant="contained">FOLLOW</Button>
-            </Paper>
-        </Grid>
-    )
-}
+import Preloader from '../../UI/Preloader/Preloader';
+import Paginator from '../../Paginator/Paginator';
+import User from '../Card/Card';
+import {getAllUsersSL, getUsersCountSL, getPageSizeSL, getСurrentPageSL, getPageArraySL} from '../../../redux/selectors/users';
+import {getUsersTC} from '../../../redux/reducers/users';
+import css from './List.module.scss';
 
 type UserBoxPropsType = {
     usersCount: number
@@ -47,9 +15,8 @@ type UserBoxPropsType = {
     pageSize: number
     pageArray: Array<number>
     userBox: Array<{
-        name: string
         id: number
-        uniquerName?: null
+        name: string
         photos: {
             small: null | string
             large: null | string
@@ -82,6 +49,7 @@ class UserList extends React.Component<UserBoxPropsType> {
             return (
                 <User 
                     key={index} 
+                    id={item.id}
                     name={item.name} 
                     status={item.status}
                     photo={item.photos.small}

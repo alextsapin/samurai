@@ -9,39 +9,21 @@ import {Img} from 'react-image'
 import Tooltip from '@mui/material/Tooltip'
 import logo from '../../images/logo.png'
 import css from './Header.module.scss'
-import LoginIcon from '@mui/icons-material/Login'
 import LogoutIcon from '@mui/icons-material/Logout'
-import {setUserDataTC} from '../../redux/reducers/auth'
+import {setAuthAvaTC, setUserDataTC} from '../../redux/reducers/auth'
 import {useDispatch, useSelector} from 'react-redux'
 import {AppStateType} from '../../redux/store'
-
-const Login = () => {
-    return (
-        <Tooltip title="Login">
-            <NavLink to="/login" className={css.loginLink}>
-                <LoginIcon fontSize="large"/>
-            </NavLink>
-        </Tooltip>
-    )
-}
-
-const Logout = () => {
-    return (
-        <Tooltip title="Logout">
-            <button className={css.button}>
-                <LogoutIcon fontSize="large"/>
-            </button>
-        </Tooltip>
-    )
-}
+import {getUserProfileTC} from '../../redux/reducers/profile'
+import Login from './Login/Login'
+import Logout from './Logout/Logout'
 
 const Header = () => {
+
     const id = useSelector<AppStateType, number | null>(state => state.auth.id)
-
+    const avaLink = useSelector<AppStateType, string | null>(state => state.auth.avaLink) 
+    
     const [active, toggleActive] = React.useState(false)
-
-    const [login, toggleLogin] = React.useState(true)
-
+    
     const dispatch = useDispatch()
 
     React.useEffect(() => {
@@ -50,8 +32,11 @@ const Header = () => {
 
     React.useEffect(() => {
         console.log(id)
+        if(id !== null) {
+            dispatch(setAuthAvaTC(id))
+        }
     }, [id])
-
+    
     const pages = [
         {
             title: 'Profile',
@@ -94,13 +79,8 @@ const Header = () => {
                     </ul>
 
                     <div className={css.avatarBox}>
-                        <Avatar alt="Remy Sharp" src="/static/images/avatar/2.jpg"/>
-                        {
-                                login
-                            ?   <Login/>
-                            :   <Logout/>
-                        }
-                        
+                        <Avatar src={avaLink !== null ? avaLink : ''} alt="ava"/>
+                        {id === null ? <Login link={avaLink}/> : <Logout/>}
                     </div>
 
                     <button className={css.menuButton} onClick={showMoblileMenu}>

@@ -19,8 +19,6 @@ const Footer = () => {
                             <Img className={css.image} src={react} alt="react"/>
                             <Img className={css.image} src={redux} alt="redux"/>
                             <Img className={css.image} src={js} alt="javascript"/>
-                        </div>
-                        <div className={css.technoBox}>
                             <Img className={css.image} src={router} alt="react-router"/>
                         </div>
                     </Grid>

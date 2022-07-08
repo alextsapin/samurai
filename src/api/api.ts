@@ -6,12 +6,11 @@ const instance = axios.create({
     headers: {
         'API-KEY': '1f975373-0b21-436f-bd12-e9e6f63d529e'
     }
-});
+})
 
 // Получим данные авторизации
 export const authAPI = () => {
     return instance.get(`auth/me`,{withCredentials: true}).then((response) => {
-        console.log(response.data)
         return response.data; 
     })
 }
@@ -35,5 +34,13 @@ export const getUserProfileAPI = (id: number) => {
     return instance.get(`profile/${id}`)
     .then(response => {
         return response.data;
+    });
+}
+
+// Получим аватар авторизованного пользователя
+export const getAuthAvaAPI = (id: number) => {
+    return instance.get(`profile/${id}`)
+    .then(response => {
+        return response.data.photos.small
     });
 }

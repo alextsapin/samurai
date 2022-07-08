@@ -16,21 +16,6 @@
     height: 55px;
 }
 
-.button {
-    background: transparent;
-    border: none;
-    color: white;
-}
-
-.loginLink {
-    color: white;
-    text-decoration: none;
-    &:hover {
-        color: white;
-        text-decoration: none;
-    }
-}
-
 .menuButton {
     background: transparent;
     border: none;
@@ -100,7 +85,7 @@
 .avatarBox {
     margin-left: auto;
     display: flex;
-    width: 110px;
+    width: 100px;
     flex-direction: row;
     justify-content: space-between;
     align-items: center;

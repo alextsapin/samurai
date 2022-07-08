@@ -1,5 +1,5 @@
 import {Dispatch} from 'redux'
-import {authAPI} from '../../api/api'
+import {authAPI, getAuthAvaAPI} from '../../api/api'
 
 type userData = {
     id: null | number,
@@ -10,7 +10,8 @@ type userData = {
 const initialState = {
     id: null,
     email: null,
-    login: null
+    login: null,
+    avaLink: null
 }
 
 const authReducer = (state = initialState, action: any) => {
@@ -19,6 +20,11 @@ const authReducer = (state = initialState, action: any) => {
         case 'SET_USER_DATA':
         return {
             ...state, ...action.payload
+        }
+
+        case 'SET_AVATAR_LINK':
+        return {
+            ...state, avaLink: action.link
         }
 
         default:
@@ -37,6 +43,11 @@ const setUserDataAC = (id: number| null, login: string | null, email: string | n
     }
 })
 
+const setAvaLinkAC = (link: string) => ({
+    type: 'SET_AVATAR_LINK',
+    link
+})
+
 // Thunk creators
 export const setUserDataTC = () => {
     return (dispatch: Dispatch) => {
@@ -47,6 +58,15 @@ export const setUserDataTC = () => {
             } else {
                 dispatch(setUserDataAC(null, null, null))
             }
+        })
+    }
+}
+
+// Thunk creators
+export const setAuthAvaTC = (id: number) => {
+    return (dispatch: Dispatch) => {
+        getAuthAvaAPI(id).then(link => {
+            dispatch(setAvaLinkAC(link))
         })
     }
 }

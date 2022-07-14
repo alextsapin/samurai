@@ -4,9 +4,11 @@ import Paper from '@mui/material/Paper';
 import {Img} from 'react-image';
 import Skeleton from '@mui/material/Skeleton';
 import Button from '@mui/material/Button';
-import user from '../../../images/user.png';
 import {NavLink} from 'react-router-dom';
+import {useDispatch} from 'react-redux';
 import css from './Card.module.scss';
+import user from '../../../images/user.png';
+import {followUserTC} from '../../../redux/reducers/users';
 
 type UserPropsType = {
     id: number
@@ -17,6 +19,13 @@ type UserPropsType = {
 }
 
 const User = (props: UserPropsType) => {
+
+    const dispatch = useDispatch()
+
+    function followUser(id: number) {
+        dispatch(followUserTC(id))
+    }
+
     return (
         <Grid item lg={3} md={4} sm={6} xs={12}>
             <Paper className={css.card} elevation={3}>
@@ -31,10 +40,10 @@ const User = (props: UserPropsType) => {
                             <Skeleton className={css.avatar} variant="circular" width={100} height={100}/>} alt="ava"
                         />
                 }
-                <Button className={css.button} variant="contained">FOLLOW</Button>
+                <Button onClick={() => followUser(props.id)} className={css.button} variant="contained">FOLLOW</Button>
             </Paper>
         </Grid>
     )
 }
 
-export default User;
+export default User

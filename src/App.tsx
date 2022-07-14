@@ -3,7 +3,7 @@ import Header from './components/Header/Header';
 import Dialogs from './components/Chat/Chat'
 import {Route, Routes} from 'react-router-dom';
 import Profile from './components/Profile/Wrapper';
-import UserList from './components/User/List/List';
+import UserList from './components/User/List';
 import Footer from './components/Footer/Footer';
 
 import './font/OpenSans.css';

@@ -2,11 +2,11 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-import Preloader from '../../UI/Preloader/Preloader';
-import Paginator from '../../Paginator/Paginator';
-import User from '../Card/Card';
-import {getAllUsersSL, getUsersCountSL, getPageSizeSL, getСurrentPageSL, getPageArraySL} from '../../../redux/selectors/users';
-import {getUsersTC} from '../../../redux/reducers/users';
+import Preloader from '../UI/Preloader/Preloader';
+import Paginator from '../Paginator/Paginator';
+import User from './Card/Card';
+import {getAllUsersSL, getUsersCountSL, getPageSizeSL, getСurrentPageSL, getPageArraySL} from '../../redux/selectors/users';
+import {getUsersTC} from '../../redux/reducers/users';
 import css from './List.module.scss';
 
 type UserBoxPropsType = {

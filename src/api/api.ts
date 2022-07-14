@@ -34,7 +34,7 @@ export const getUserProfileAPI = (id: number) => {
     return instance.get(`profile/${id}`)
     .then(response => {
         return response.data;
-    });
+    })
 }
 
 // Получим аватар авторизованного пользователя
@@ -42,5 +42,21 @@ export const getAuthAvaAPI = (id: number) => {
     return instance.get(`profile/${id}`)
     .then(response => {
         return response.data.photos.small
-    });
+    })
+}
+
+// Подпишемся на пользователя
+export const followAPI = (id: number) => {
+    return instance.post(`follow/${id}`, {})
+    .then(response => {
+        return response.data.resultCode
+    })
+}
+
+// Отпишемся пользователя
+export const unFollowAPI = (id: number) => {
+    return instance.delete(`follow/${id}`)
+    .then(response => {
+        return response.data.resultCode
+    })
 }

@@ -112,6 +112,7 @@ export const editPostTC = (id: string, newText: string) => {
 export const getUserProfileTC = (id: number) => {
     return (dispatch: Dispatch) => {
         getUserProfileAPI(id).then(data => {
+            console.log(data)
             dispatch(setUserProfileAC(data))
         })
     }

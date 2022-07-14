@@ -31,9 +31,9 @@ const Header = () => {
     }, [])
 
     React.useEffect(() => {
-        console.log(id)
         if(id !== null) {
             dispatch(setAuthAvaTC(id))
+            dispatch(getUserProfileTC(id))
         }
     }, [id])
     
@@ -79,8 +79,12 @@ const Header = () => {
                     </ul>
 
                     <div className={css.avatarBox}>
-                        <Avatar src={avaLink !== null ? avaLink : ''} alt="ava"/>
-                        {id === null ? <Login link={avaLink}/> : <Logout/>}
+                        {
+                            avaLink !== null 
+                            ? <NavLink to={'/profile/' + id}><Avatar src={avaLink} alt="ava"/></NavLink>
+                            : <Avatar src='' alt="ava"/>
+                        }
+                        {id === null ? <Login/> : <Logout/>}
                     </div>
 
                     <button className={css.menuButton} onClick={showMoblileMenu}>

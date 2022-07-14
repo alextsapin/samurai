@@ -37,7 +37,7 @@ const Post = (props: PostPropsType) => {
     }
 
     return (
-        <Paper className={css.post} elevation={3}>
+        <div className={css.post}>
             <img className={css.avatar} src={ava} alt="img"/>
             {
                 edit 
@@ -62,7 +62,7 @@ const Post = (props: PostPropsType) => {
                     <DeleteForeverIcon/>
                 </button>
             </div>
-        </Paper> 
+        </div> 
         
     )
 }

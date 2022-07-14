@@ -1,6 +1,6 @@
 import {Dispatch} from 'redux';
 import {v1} from 'uuid';
-import {getUsersAPI, getUsersCountAPI} from '../../api/api'
+import {getUsersAPI, getUsersCountAPI, followAPI} from '../../api/api'
 
 const initialState = {
     userBox: null,
@@ -103,6 +103,13 @@ export const getUsersTC = (currentPage: number, usersCount: number, pageSize: nu
         })
 
         dispatch(calcTotalPagesTC(usersCount, pageSize) as any)
+    }
+}
+
+export const followUserTC = (id: number) => {
+    return async (dispatch: Dispatch) => {
+        const result = await followAPI(id)
+        console.log(result)
     }
 }
 

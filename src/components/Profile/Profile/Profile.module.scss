@@ -1,5 +1,28 @@
+.name {
+    font-size: 20px;
+    margin-bottom: 20px;
+    font-weight: bold;
+}
+
+.title {
+    font-weight: bold;
+}
+
+.top {
+    margin-top: 15px;
+}
+
+.wrap {
+    padding: 20px;
+}
+
+.info {
+    border: 1px solid #E0E0E0;
+}
+
 .row {
     &:nth-of-type(odd) {
         background: #F5F5F5;
     }
 }
+

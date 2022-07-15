@@ -1,8 +1,10 @@
 import {Dispatch} from 'redux';
 import {v1} from 'uuid';
-import {getUsersAPI, getUsersCountAPI, followAPI} from '../../api/api'
+import {getUsersAPI, getUsersCountAPI, followAPI, unFollowAPI} from '../../api/api'
 
 const initialState = {
+    isFetching: false,
+    followUsers: [24944],
     userBox: null,
     usersCount: 0,
     pageSize: 16,
@@ -12,11 +14,6 @@ const initialState = {
 
 const usersReducer = (state = initialState, action: any) => {
     switch(action.type) {
-
-        case 'FOLLOW':
-        return {
-           // ...state, userBox: state.userBox.map(item => item.id === action.id ? item.followed = true : item)
-        }
 
         case 'SET_USERS':
         return {
@@ -38,13 +35,30 @@ const usersReducer = (state = initialState, action: any) => {
             ...state, pageArray: action.pageArray
         }
 
+        case 'TOGGLE_IS_FETCHING':
+        return {
+            ...state, isFetching: action.isFetching
+        }
+
+        case 'TOGGLE_USER_FOLLOW':
+        return {
+            ...state, followUsers: action.isFetching ? [...state.followUsers, action.id]: [state.followUsers.filter(id => id !== action.id)]
+        }
+
         default:
         return state
     }
 }
 
-const followAC = (id: string) => ({
-    type: 'FOLLOW'
+const toggleIsFetchingAC = (isFetching: boolean) => ({
+    type: 'TOGGLE_IS_FETCHING',
+    isFetching
+})
+
+const toggleUserFollowAC = (id: number, isFetching: boolean) => ({
+    type: 'TOGGLE_IS_FETCHING',
+    id,
+    isFetching
 })
 
 const unfollowAC = (id: string) => ({
@@ -106,9 +120,18 @@ export const getUsersTC = (currentPage: number, usersCount: number, pageSize: nu
     }
 }
 
-export const followUserTC = (id: number) => {
+export const followTC = (id: number) => {
     return async (dispatch: Dispatch) => {
-        const result = await followAPI(id)
+        dispatch(toggleIsFetchingAC(true))
+        dispatch(toggleUserFollowAC(id, true))
+        await followAPI(id)
+        dispatch(toggleIsFetchingAC(false))
+    }
+}
+
+export const unFollowTC = (id: number) => {
+    return async (dispatch: Dispatch) => {
+        const result = await unFollowAPI(id)
         console.log(result)
     }
 }

@@ -4,9 +4,9 @@ import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
 import Preloader from '../UI/Preloader/Preloader';
 import Paginator from '../Paginator/Paginator';
-import User from './Card/Card';
-import {getAllUsersSL, getUsersCountSL, getPageSizeSL, getСurrentPageSL, getPageArraySL} from '../../redux/selectors/users';
-import {getUsersTC} from '../../redux/reducers/users';
+import User from './User/User';
+import {getAllUsersSL, getUsersCountSL, getPageSizeSL, getСurrentPageSL, getPageArraySL, getFollowUsersSL} from '../../redux/selectors/users';
+import {getUsersTC, followTC, unFollowTC} from '../../redux/reducers/users';
 import css from './List.module.scss';
 
 type UserBoxPropsType = {
@@ -14,6 +14,7 @@ type UserBoxPropsType = {
     currentPage: number
     pageSize: number
     pageArray: Array<number>
+    followUsers: Array<number>
     userBox: Array<{
         id: number
         name: string
@@ -25,6 +26,8 @@ type UserBoxPropsType = {
         followed: boolean
     }>
     getUsersTC: (currentPage: number, usersCount: number, pageSize: number) => void
+    followTC: (id: number) => void
+    unFollowTC: (id: number) => void
 }
 
 class UserList extends React.Component<UserBoxPropsType> {
@@ -53,6 +56,10 @@ class UserList extends React.Component<UserBoxPropsType> {
                     name={item.name} 
                     status={item.status}
                     photo={item.photos.small}
+                    followed={item.followed}
+                    followUsers={this.props.followUsers}
+                    followTC={this.props.followTC}
+                    unFollowTC={this.props.unFollowTC}
                 />
             )
         })
@@ -83,8 +90,9 @@ const mapStateToProps = (state: any) => {
         userBox: getAllUsersSL(state),
         pageSize: getPageSizeSL(state),
         currentPage: getСurrentPageSL(state),
-        pageArray: getPageArraySL(state)
+        pageArray: getPageArraySL(state),
+        followUsers: getFollowUsersSL(state)
     }
 }
 
-export default connect(mapStateToProps, {getUsersTC})(UserList);
+export default connect(mapStateToProps, {getUsersTC, followTC, unFollowTC})(UserList);

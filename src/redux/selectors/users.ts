@@ -17,3 +17,7 @@ export const getСurrentPageSL = (state: any) => {
 export const getPageArraySL = (state: any) => {
     return state.users.pageArray;
 }
+
+export const getFollowUsersSL = (state: any) => {
+    return state.users.followUsers;
+}

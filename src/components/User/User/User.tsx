@@ -5,27 +5,25 @@ import {Img} from 'react-image';
 import Skeleton from '@mui/material/Skeleton';
 import Button from '@mui/material/Button';
 import {NavLink} from 'react-router-dom';
-import {useDispatch} from 'react-redux';
-import css from './Card.module.scss';
+import {useDispatch, useSelector} from 'react-redux';
+import {AppStateType} from '../../../redux/store';
+import Follow from '../Follow/Follow';
+import css from './User.module.scss';
 import user from '../../../images/user.png';
-import {followUserTC} from '../../../redux/reducers/users';
+import { unFollowTC } from '../../../redux/reducers/users';
 
 type UserPropsType = {
     id: number
     name: string
     photo: string
     status: null | string
-    followed?: boolean
+    followed: boolean
+    followUsers: Array<number>
+    followTC: (id: number) => void
+    unFollowTC: (id: number) => void
 }
 
 const User = (props: UserPropsType) => {
-
-    const dispatch = useDispatch()
-
-    function followUser(id: number) {
-        dispatch(followUserTC(id))
-    }
-
     return (
         <Grid item lg={3} md={4} sm={6} xs={12}>
             <Paper className={css.card} elevation={3}>
@@ -40,7 +38,7 @@ const User = (props: UserPropsType) => {
                             <Skeleton className={css.avatar} variant="circular" width={100} height={100}/>} alt="ava"
                         />
                 }
-                <Button onClick={() => followUser(props.id)} className={css.button} variant="contained">FOLLOW</Button>
+                <Follow id={props.id} followed={props.followed} followUsers={props.followUsers} unFollowTC={props.unFollowTC} followTC={props.followTC}/>
             </Paper>
         </Grid>
     )

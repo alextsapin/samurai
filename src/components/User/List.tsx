@@ -79,7 +79,6 @@ class UserList extends React.Component<UserBoxPropsType> {
                     pageChange={(pageNumber: number) => this.pageChangeHandler(pageNumber)}
                 />
             </Container>
-
         )
     }
 }

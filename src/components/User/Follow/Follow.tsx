@@ -13,16 +13,22 @@ type PropsType = {
 }
 
 const Follow = (props: PropsType) => {
+    console.log(props)
     if(props.followed) {
         return (
-            <Button disabled={props.followUsers.some(id => id === props.id)} className={css.button}
-                onClick={()=>{props.unFollowTC(props.id);}} variant="contained">
+            <Button 
+                disabled={props.followUsers.some(id => id === props.id)} 
+                className={css.button}
+                onClick={()=>{props.unFollowTC(props.id);}} 
+                variant="contained">
                 <PersonAddDisabledIcon/>
                 <span className="ml-1">UNFOLLOW</span>
             </Button>)
     } else {
         return (
-            <Button disabled={props.followUsers.some(id => id === props.id)} className={css.button} 
+            <Button 
+                disabled={props.followUsers.some(id => id === props.id)} 
+                className={css.button} 
                 onClick={()=>{props.followTC(props.id)}} variant="contained">
                 <PersonAddIcon/>
                 <span className="ml-1">FOLLOW</span>

@@ -1,20 +1,51 @@
 import {Dispatch} from 'redux';
 import {v1} from 'uuid';
-import {getUsersAPI, getUsersCountAPI, followAPI, unFollowAPI} from '../../api/api'
+import {getUsersAPI, getUsersCountAPI, followAPI, unFollowAPI} from '../../api/api';
+
+type userType = {
+    id: number
+    name: string
+    status: string
+    photos: {
+        small: string | null
+        large: string| null
+    }
+    followed: boolean
+}
+
+type stateType = {
+    isFetching: boolean
+    followUsers: Array<number>
+    userBox: Array<userType> | null
+    usersCount: number
+    pageSize: number
+    currentPage: number
+    pageArray: Array<number>
+}
 
 const initialState = {
     isFetching: false,
     followUsers: [24944],
-    userBox: null,
+    userBox: [],
     usersCount: 0,
     pageSize: 16,
     currentPage: 1,
     pageArray: []
 }
 
-const usersReducer = (state = initialState, action: any) => {
+const usersReducer = (state = initialState, action: any): stateType => {
     switch(action.type) {
 
+        case 'FOLLOW':
+        return {
+            ...state, userBox: state.userBox.map((u: userType) => u.id === action.id ? {...u, followed: true} : u)
+        }
+
+        case 'UNFOLLOW':
+        return {
+            ...state, userBox: state.userBox.map((u: userType) => u.id === action.id ? {...u, followed: false} : u)
+        }
+        
         case 'SET_USERS':
         return {
             ...state, userBox: action.data
@@ -56,13 +87,19 @@ const toggleIsFetchingAC = (isFetching: boolean) => ({
 })
 
 const toggleUserFollowAC = (id: number, isFetching: boolean) => ({
-    type: 'TOGGLE_IS_FETCHING',
+    type: 'TOGGLE_USER_FOLLOW',
     id,
     isFetching
 })
 
-const unfollowAC = (id: string) => ({
-    type: 'UPDATE_POST'
+const followAC = (id: number) => ({
+    type: 'FOLLOW',
+    id
+})
+
+const unFollowAC = (id: number) => ({
+    type: 'UNFOLLOW',
+    id
 })
 
 const setUsersAC = (data: any) => ({
@@ -124,15 +161,23 @@ export const followTC = (id: number) => {
     return async (dispatch: Dispatch) => {
         dispatch(toggleIsFetchingAC(true))
         dispatch(toggleUserFollowAC(id, true))
-        await followAPI(id)
-        dispatch(toggleIsFetchingAC(false))
+        followAPI(id).then(() => {
+            dispatch(followAC(id))
+            dispatch(toggleIsFetchingAC(false))
+            dispatch(toggleUserFollowAC(id, false))
+        })
     }
 }
 
 export const unFollowTC = (id: number) => {
     return async (dispatch: Dispatch) => {
-        const result = await unFollowAPI(id)
-        console.log(result)
+        dispatch(toggleIsFetchingAC(true))
+        dispatch(toggleUserFollowAC(id, true))
+        unFollowAPI(id).then(() => {
+            dispatch(unFollowAC(id))
+            dispatch(toggleIsFetchingAC(false))
+            dispatch(toggleUserFollowAC(id, false))
+        })
     }
 }
 

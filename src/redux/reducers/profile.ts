@@ -1,20 +1,16 @@
 import {Dispatch} from 'redux';
 import {v1} from 'uuid';
 import {getUserProfileAPI} from '../../api/api';
+import {PostType} from '../../components/Profile/Post/Post'
 
 const initialState = {
     postBox: [
-        {id: v1(), text: "В Китае успешно проверили российские тест-системы на коронавирус."},
-        {id: v1(), text: "Разработана система борьбы с астеройдами."},
-        {id: v1(), text: "В Монголии нашли нефть."}
+        {id: v1(), message: "В Китае успешно проверили российские тест-системы на коронавирус."},
+        {id: v1(), message: "Разработана система борьбы с астеройдами."},
+        {id: v1(), message: "В Монголии нашли нефть."}
     ],
     newPostText: '',
     userProfile: null
-}
-
-type postType = {
-    id: string
-    text: string
 }
 
 const profileReducer = (state = initialState, action: any) => {
@@ -28,7 +24,7 @@ const profileReducer = (state = initialState, action: any) => {
         case 'ADD_POST': {
             const newPost = {
                 id: v1(),
-                text: state.newPostText
+                message: state.newPostText
             }
 
             return {
@@ -38,13 +34,13 @@ const profileReducer = (state = initialState, action: any) => {
 
         case 'DELETE_POST': {
             return {
-                ...state, postBox: [...state.postBox.filter((item: postType) => item.id !== action.id)]
+                ...state, postBox: [...state.postBox.filter((item: PostType) => item.id !== action.id)]
             }
         }
 
         case 'EDIT_POST': {
             return {
-                ...state, postBox:  [...state.postBox.map((item: postType) => item.id === action.id ? {...item, text: action.newText}: item)]
+                ...state, postBox:  [...state.postBox.map((item: PostType) => item.id === action.id ? {...item, message: action.message}: item)]
             }
         }
 
@@ -73,10 +69,10 @@ const deletePostAC = (id: string) => ({
     id: id
 })
 
-const editPostAC = (id: string, newText: string) => ({
+const editPostAC = (id: string, message: string) => ({
     type: 'EDIT_POST',
-    id: id,
-    newText: newText
+    id,
+    message
 })
 
 const setUserProfileAC = (userProfile: any) => ({

@@ -1,20 +1,26 @@
 import React from 'react';
-import css from './style.module.scss';
-import Paper from '@mui/material/Paper';
 import DeleteForeverIcon from '@mui/icons-material/DeleteForever';
 import EditIcon from '@mui/icons-material/Edit';
-import ava from '../../../images/avatar.jpg';
+import Skeleton from '@mui/material/Skeleton';
+import {useSelector} from 'react-redux';
+import {AppStateType} from '../../../redux/store';
+import {Img} from 'react-image';
+import Grid from '@mui/material/Grid';
+import css from './Post.module.scss';
 
-import TextField from '@mui/material/TextField';
-
-type PostPropsType = {
+export type PostType = {
     id: string
     message: string
+}
+
+export type propsType = {
     deletePost: (id: string) => void
     editPost: (newText: string) => void
 }
 
-const Post = (props: PostPropsType) => {
+const Post = (props: PostType & propsType) => {
+
+    const ava = useSelector<AppStateType, null | string >(state => state.auth.avaLink)
 
     const [edit, setEdit] = React.useState(false);
     const [text, setText] = React.useState(props.message);
@@ -37,32 +43,35 @@ const Post = (props: PostPropsType) => {
     }
 
     return (
-        <div className={css.post}>
-            <img className={css.avatar} src={ava} alt="img"/>
-            {
-                edit 
-                ?   <TextField 
-                        className="mt-3" 
-                        value={text} 
-                        variant="outlined" 
-                        label="Отредактируйте текст"
-                        onBlur={turnOffHandler}
-                        onChange={onChangeHandler}
-                        autoFocus
-                    />
-                :   props.message 
-            }
+        <Grid className={css.post} container spacing={0}>
+            <Grid item lg={2}>
+                {
+                    ava === null
+                    ? <Skeleton variant="circular" width={70} height={70}/>
+                    : <Img className={css.avatar} src={ava} loader={<Skeleton variant="circular" width={70} height={70}/>} alt="img"/>
+                }
+            </Grid>
+            
+            <Grid item lg={9}>
+                {
+                    edit 
+                    ? <textarea className={css.input} value={text} onBlur={turnOffHandler} onChange={onChangeHandler} autoFocus/>
+                    : props.message 
+                }
+            </Grid>
 
-            <div className={css.panel}>
-                <button onClick={postEditHandler} className={css.button}>
-                    <EditIcon/>
-                </button>
+            <Grid item lg={1}>
+                <div className={css.panel}>
+                    <button onClick={postEditHandler} className={css.button}>
+                        <EditIcon/>
+                    </button>
 
-                <button onClick={() => postDeleteHandler(props.id)} className={css.button}>
-                    <DeleteForeverIcon/>
-                </button>
-            </div>
-        </div> 
+                    <button onClick={() => postDeleteHandler(props.id)} className={css.button}>
+                        <DeleteForeverIcon/>
+                    </button>
+                </div>
+            </Grid>
+        </Grid> 
         
     )
 }

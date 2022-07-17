@@ -2,32 +2,33 @@ import React from 'react';
 import {connect} from 'react-redux';
 import Container from '@mui/material/Container';
 import Grid from '@mui/material/Grid';
-
-import css from './style.module.scss'
-import Post from '../Post/Post';
-
 import Button from '@material-ui/core/Button';
+import Post from '../Post/Post';
+import {PostType} from '../Post/Post';
+import css from './PostBox.module.scss';
 
-// ЕС
+// TС
 import {addPostTC, updatePostTC, deletePostTC, editPostTC} from '../../../redux/reducers/profile';
 
 // SL
 import {getNewPostTextSL, getPostBoxSL} from '../../../redux/selectors/profile';
 
-type PostBoxPropsType = {
-    postBox: Array<postType>
+type PostBoxType = {
+    postBox: Array<PostType>
+    newPostText: string
+    updatePostTC: (text: string) => void
+    addPostTC: () => void
+    editPostTC: (id: string, newText: string) => void
+    deletePostTC: (id: string) => void
 }
 
-type postType = {
-    id: string
-    text: string
-}
-
-const PostBox = (props: any) => {    
+const PostBox = (props: PostBoxType) => {    
     const newPostElement = React.createRef<HTMLTextAreaElement>();
 
     const updatePost = () => {
-        props.updatePostTC(newPostElement.current?.value)
+        if(newPostElement.current) {
+            props.updatePostTC(newPostElement.current.value)
+        }
     }
 
     const addPost = (e: any) => {
@@ -39,11 +40,11 @@ const PostBox = (props: any) => {
         props.editPostTC(id, newText)
     }
 
-    const postJSXElements = props.postBox.map((item: postType, index: number) => (
+    const postJSXElements = props.postBox.map((item: PostType, index: number) => (
         <Post 
             key={index}
             id={item.id} 
-            message={item.text} 
+            message={item.message} 
             deletePost={() => props.deletePostTC(item.id)} 
             editPost={(newText: string) => editPostHandler(item.id, newText)}
         />
@@ -57,7 +58,7 @@ const PostBox = (props: any) => {
                         ref={newPostElement} 
                         onChange={updatePost} 
                         value={props.newPostText} 
-                        className={'form-control ' + css.textarea} 
+                        className={css.textarea} 
                         placeholder="Мой новый пост..." 
                     />
                     <br/>

@@ -13,7 +13,6 @@ type PropsType = {
 }
 
 const Follow = (props: PropsType) => {
-    console.log(props)
     if(props.followed) {
         return (
             <Button 

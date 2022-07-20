@@ -10,6 +10,7 @@ import './font/OpenSans.css';
 import './sass/main.scss';
 
 const App = () => {
+    console.log(process.env)
     return (
         <div>
             <Header/>
